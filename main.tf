@@ -77,6 +77,7 @@ module "runners" {
   runners_maximum_count           = var.runners_maximum_count
   idle_config                     = var.idle_config
   enable_ssm_on_runners           = var.enable_ssm_on_runners
+  block_device_mappings           = var.block_device_mappings
 
   lambda_zip                = var.runners_lambda_zip
   lambda_timeout_scale_up   = var.runners_scale_up_lambda_timeout

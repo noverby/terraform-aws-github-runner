@@ -117,6 +117,12 @@ variable "instance_profile_path" {
   default     = null
 }
 
+variable "block_device_mappings" {
+  description = "The EC2 instance block device configuration. Takes the following keys: `delete_on_termination`, `volume_type`, `volume_size`, `encrypted`, `iops`"
+  type        = map(string)
+  default     = {}
+}
+
 variable "instance_type" {
   description = "Instance type for the action runner."
   type        = string
