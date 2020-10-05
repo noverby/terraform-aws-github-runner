@@ -32,6 +32,7 @@ done
 CONFIG=$(aws ssm get-parameters --names ${environment}-$INSTANCE_ID --with-decryption --region $REGION | jq -r ".Parameters | .[0] | .Value")
 aws ssm delete-parameter --name ${environment}-$INSTANCE_ID --region $REGION
 
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export RUNNER_ALLOW_RUNASROOT=1
 ./config.sh --unattended --name $INSTANCE_ID --work "_work" $CONFIG
 
