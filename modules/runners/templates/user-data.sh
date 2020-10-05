@@ -20,9 +20,6 @@ aws s3 cp ${s3_location_runner_distribution} actions-runner.tar.gz
 tar xzf ./actions-runner.tar.gz
 rm -rf actions-runner.tar.gz
 
-%{ if runner_architecture == "arm64" ~}
-sed -i '2 i export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1' runsvc.sh
-%{ endif ~}
 
 INSTANCE_ID=$(wget -q -O - http://169.254.169.254/latest/meta-data/instance-id)
 REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
@@ -40,6 +37,10 @@ export RUNNER_ALLOW_RUNASROOT=1
 
 chown -R ec2-user:ec2-user .
 ./svc.sh install ${service_user}
+
+%{ if runner_architecture == "arm64" ~}
+sed -i '2 i export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1' runsvc.sh
+%{ endif ~}
 
 ${post_install}
 
